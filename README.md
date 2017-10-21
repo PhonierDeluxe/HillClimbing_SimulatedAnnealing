@@ -1,4 +1,4 @@
-# Implementation of hill climbing algorithm in python
+# Implementation of hill climbing algorithm with simulated annealing in python
 
 In this implementation the algorithm is searching for the most efficient tour to visit a number of cities.
 
@@ -17,7 +17,10 @@ In this implementation the algorithm is searching for the most efficient tour to
  **A** --[3 km]--> **B** --[1 km]--> **C** | **[4 km]**
 
  **A** --[2 km]--> **C** --[1 km]--> **B** | **[3 km]** (most efficient)
+ 
 
-If you change the amount of cities (countCities = x), you have to change the threshold aswell. For 20 cities, a threshold between 15-25 is recommended. For 100 cities, a threshold between 100-175 is recommended. The higher the threshold, the more time the algorithm will need to find an optimum.
+**propability calculation** for simulated annealing: ![asd](http://latex.codecogs.com/png.latex?%5Cdpi%7B200%7D%20e%5E%7B%5Cfrac%7BcurrentFitness%20-%20lastFitness%7D%7Btemperature%7D%7D)
+
+If you change the amount of cities (countCities = x), you have to change the temperature aswell. You have to experiment with the epsilon value and the value for temperature. Remember, epsilon should be small!
 
 

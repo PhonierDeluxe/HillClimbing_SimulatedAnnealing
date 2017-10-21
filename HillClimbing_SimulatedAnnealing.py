@@ -2,6 +2,7 @@ from random import *
 import random
 import numpy
 import copy
+import math
 
 countCities = 20;
 # 2D Array
@@ -11,10 +12,12 @@ hypothesis = [int]*countCities
 visitedCities = []
 saveState = []
 
-threshold = 25
 lastFitness = 0
 trials = 0
 cityIndex = 1
+
+temp = 1000
+epsilon = 0.05
 
 # calculates fitness based on the difference between the distances
 def getFitness(fitness, hypothesis, saveState, cities):
@@ -71,13 +74,13 @@ if __name__ == '__main__':
     for i in range(countCities):
         hypothesis[i] = i
         for j in range(countCities):
-            if (j > i):
+            if j > i:
                 cities[i][j] = randint(1,100)
-            elif(j < i):
+            elif j < i:
                 cities[i][j] = cities[j][i]
 
     print("=== START ===");
-    while(lastFitness < threshold):
+    while temp > epsilon:
 
         print("_________________________________________________________")
         saveState = copy.deepcopy(hypothesis)
@@ -86,15 +89,17 @@ if __name__ == '__main__':
         print("Old fitness ",lastFitness)
         print("Current fitness ",currentFitness)
 
-        if (currentFitness > lastFitness):
+        if currentFitness > lastFitness:
             lastFitness = currentFitness
-        elif(currentFitness < lastFitness):
+        elif uniform(0,1) < math.exp((currentFitness - lastFitness)/temp):
+            lastFitness = currentFitness
+        elif currentFitness < lastFitness:
             hypothesis = copy.deepcopy(saveState)
-            if(trials < 3):
+            if trials < 3:
                 increment()
             else:
                 trials = 0
             visitedCities.append(saveState[cityIndex])
-
+        temp -= epsilon
 
 
